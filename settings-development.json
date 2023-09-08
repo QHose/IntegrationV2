@@ -42,8 +42,8 @@
         "runInitialQlikSenseSetup": true,
         "qlikSense": {
             "multiTenantScenario": false,
-            "connectToSenseAsUserDirectory": "QLIK-AB0Q2URN5T",
-            "connectToSenseAsUser": "Qlikexternal",
+            "connectToSenseAsUserDirectory": "",
+            "connectToSenseAsUser": "",
             "proxyAllowHTTP": true,
             "StreamsToCreateAutomatically": ["API apps", "Templates", "Everyone", "QA", "TEST"],
             "APIAppStreamName": "API apps",
