@@ -1,0 +1,31 @@
+<template name="slideSelectionSheet">  
+    <div id="sheetSelector" class="ui container sheetSelector">
+        <h1 class="ui header">
+            <img class="ui image" src="/images/school.png" alt="image of school">
+            <div class="content">
+              Learn More
+            </div>
+          </h1>
+          <p>Please choose the subjects from left to right to generate a presentation, based on your selections.</p>
+        <div class="ui segments">
+            <div class=""><iframe id="selectionSlide" src='{{IFrameURLChapterSelection}}' class="selector"
+                style="border: none;">
+            </iframe></div>        
+                
+            <div class="blue  button box-content">
+
+              <nav role="presentation" aria-label="Main Navigation" id="flyoutnavkbfixed">
+                  <ul>
+                      <li class="has-submenu">
+                          <a href="/slides" class="start button" 
+                              id="bodyDropdown">Start your presentation</a>
+                          
+                      </li>
+                  </ul>
+              </nav>
+          </div>
+           
+          </div>      
+        
+    </div>
+</template>

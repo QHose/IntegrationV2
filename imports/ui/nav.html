@@ -1,0 +1,58 @@
+<template name="nav">
+  <div class="ui container top secondary stackable menu mainNavBar">
+    <div class="column"> <a class="skip-main item" href="#bodyDropdown">SKIP TO CONTENT</a>
+    </div>
+    {{#if isSlide}}
+    <div class="column"> <a id="home" class="{{#if isMainLandingPage}} active {{/if}} item">
+      <i class="home icon"></i></a>
+    </div>
+    {{/if}}
+    <!-- for each level 1, show menu item -->
+    {{#each item in items }}
+
+    <div class="column"> <a id="{{item.qText}}" href="" class="{{active area item}} item">
+        {{item.qText}}
+      </a>
+    </div>
+
+    {{/each}}
+    <div class="column">
+      {{#if isSlide}} 
+      
+      <a id="sharePresentation"  href="" class="item" data-micromodal-trigger="modal-1"> <i class="envelope outline icon"></i></a>
+      {{/if}}
+    </div>  
+
+
+  </div>
+</template>
+
+<template name="sheetSelector">
+
+  <a id="sheetSelector" class="item selectSlides">
+    <i class="inverted search link icon"></i> CHANGE PRESENTATION</a>
+
+</template>
+
+<template name="yourSaasPlatformMenu">
+  <!-- <div class="ui top fixed menu">
+    <div class="ui container">
+      <div class="ui dropdown item">SAAS PROVISIONING
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="{{pathFor 'generation'}}">Provisioning admin panel</a>
+          <a class="item" href="{{pathFor 'securityRules'}}">Security and license rules</a>
+          {{#if readyToTestSSO}}
+          <a class="item" href="{{webIntegrationDemo}}/hub" target="_blank">Your SaaS platform with Qlik Sense
+            embedded</a>
+          <a class="item" href="{{senseServerHub}}" target="_blank">Not embedded, Hub using Single Sign On</a>
+          <a class="item" href="{{senseServerQMC}}" target="_blank">Not embedded, QMC using Single Sign On</a>{{/if}}
+          <a class="item" href="{{pathFor 'users'}}">Customers and users</a>
+          <a class="item" href="{{pathFor 'templateOverview'}}">Template apps</a>
+          <a class="item" href="{{pathFor 'ApiLogsTable'}}" target="_blank">API Logs</a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+</template>

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "c090c91d-e51c-4cfc-903a-579e5da3c132",
+    "createdDate": "2017-11-09T16:07:20.853Z",
+    "modifiedDate": "2017-11-09T16:07:20.853Z",
+    "modifiedByUserName": "QLIK-AB0Q2URN5T\\qlikexternal",
+    "category": "Security",
+    "type": "Custom",
+    "name": "Z_OEM_DEVELOPER",
+    "rule": "user.environment.group = \"Developer\" and\n ((resource.owner = user and resource.stream.Empty()) or (resource.app.HasPrivilege(\"read\") and resource.published =\"false\" ))",
+    "resourceFilter": "App*",
+    "actions": 317,
+    "comment": "Extends the Z_CONSUMER rule. This user can also create own apps and create sheets in apps (like a contributor). He can't publish.",
+    "disabled": false,
+    "ruleContext": 0,
+    "seedId": "00000000-0000-0000-0000-000000000000",
+    "version": 0,
+    "tags": [],
+    "privileges": null,
+    "impactSecurityAccess": false,
+    "schemaPath": "SystemRule"
+  }
+]

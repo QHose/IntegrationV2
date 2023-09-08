@@ -1,0 +1,216 @@
+<template name="slidesContainerIFrame">
+  <iframe allowfullscreen src="{{pathFor 'slides'}}" class="frame"></iframe>
+</template>
+
+
+
+<template name="slides">
+  <!-- for each header: a level 1 and 2 combination -->
+  <!--         Create a chapter breaker if the level 1 has changed in the current row-->
+  <!-- The current level 1 and 2 headers -->
+  {{> slideShareModal}}
+  {{#if showSelector}}
+  {{> slideSelectionSheet }}
+  {{/if}}
+
+
+
+  <div class="reveal">
+    <div class="slides">
+      <div class="sr-only">Use your keyboard arrows to navigate through the slides</div>
+
+      {{#if showSubjectAreaIntroduction}}
+      <section>
+        <div class="ui container" style="text-align:left">
+          <h1 class="ui dividing header">{{presentationName}} integration<a class="anchor" id="types"></a></h1>
+
+          <h2 class="ui header"> Introduction</h2>
+          When embedding Qlik Sense in your platform, there are several integration topics to cover. Some key topics
+          which you will find in the top menu are
+          <!-- <div class="ui bulleted list">
+            <div class="item">App, What is a Qlik Sense app, how to use alerts/reports and predictive models?
+              (dashboard)</div>
+            <div class="item">Data, how to get the data into the dashboard?</div>
+            <div class="item">Web, how do you embed the content into your site?</div>
+            <div class="item">Security, how do you enforce single sing on?</div>
+            <div class="item">API, how do you setup multitenant SaaS provisioning using the APIs?</div>
+            <div class="item">Deployment, how would an integrated architecture look like?</div>
+
+          </div> -->
+          <table id="subjectAreaIntro" class="ui celled table">
+            <thead>
+              <tr><th>Subject Area</th>
+              <th>Description</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td>App</td>
+                <td >What is a Qlik Sense app (dashboard), how to use alerts, reports and predictive models?
+                  </td>
+              </tr>
+              <tr>
+                <td >Data</td>
+                <td >How to get the data into the dashboard?</td>
+              </tr>
+              <tr>
+                <td >Embedding</td>
+                <td >How do you embed a dashboard into your platform?</td>
+              </tr>
+              <tr>
+                <td >Security</td>
+                <td >How do you enforce single sing on?</td>
+              </tr>
+              <tr>
+                <td >API</td>
+                <td >How to do multitenant SaaS provisioning using the APIs or Qlik Application Automation?</td>
+              </tr>
+              <tr>
+                <td >Deployment</td>
+                <td >What would an integrated architecture look like?</td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <h2 class="ui header">Navigation</h2>
+
+          <p>First, select the subject area of choice from the top menu. Next, you can find additional chapters related
+            to your selection on the left side. You are now navigating in a slide show created using the Qlik Sense
+            APIs, use your arrow buttons on your keyboard or click on the arrow.
+          </p>
+          <p>
+          <div class="ui placeholder ">
+            <img class="ui image" src="/images/subject area introduction.png">
+
+          </div>
+
+
+          </p>
+
+        </div>
+      </section>
+      {{else}}
+
+      {{#each slideHeaders }}
+      {{#if chapterSlide this}}
+      <section>
+        <div class="ui grid">
+          <div class="two wide column">
+            {{>chapters}}
+          </div>
+          <div class="twelve wide column">
+            <div class="ui integrationBreaker" style="text-align: left;font-size: 1em;">
+              <h1 class="ui header" style="color: #0E2F4E;">
+                Next chapter: {{this}} </h1>
+              <div class="ui divider"></div>
+              <div>
+
+                <h2 class="ui header" style="font-size: 1em;">In this chapter you will see the following slides: </h2>
+                {{#each slide in TableOfContentForChapter }}
+                <div class="ui bulleted list" style="">
+                  <div class="item"> {{slide}}
+                  </div>
+                </div>
+                {{/each}}
+                <br>
+                <div class="ui icon message">
+                  <i class="book icon"></i>
+                  <div class="content">
+                    <div class="header">
+                      How to move through the content library?
+                    </div>
+                    <p>You can click the right arrow to navigate through all the slides, or you can directly go to a
+                      specific chapter by using the menu on the left,
+                      or start over by selecting a different subject area in the top. </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {{else}}
+      {{> slide slide=this slideNr=@index}}
+      {{/if}}
+      {{/each}}
+      {{/if}}
+    </div>
+  </div>
+</template>
+
+<template name="slide">
+  <section class="slide">
+    <div class="wrap">
+      <div class="ui grid">
+        <div class="two wide column">
+          {{>chapters}}
+        </div>
+        <div class="twelve wide column">
+          {{#if active slideNr}}
+          <!-- <h1> {{{level 1 slide}}}</h1> -->
+          <h2>{{{level 2 slide}}}
+            <!-- <hr role="presentation"> -->
+          </h2>
+
+          {{> slideContent slide=slide}}
+          {{/if}}
+        </div>
+
+      </div>
+    </div>
+    <hr role="presentation">
+    {{> footer}}
+  </section>
+
+</template>
+
+<template name="chapters">
+  <div id="chapters" class="ui secondary vertical fluid menu" style="text-align: left">
+    <div class="header item">
+      {{#if presentationName}}
+      {{presentationName}} - {{currentSubjectArea}} chapters
+      {{else}}
+      Chapters shared with you
+      {{/if}}
+    </div>
+    {{#each chapter in chapters }}
+
+    <a id="{{chapter.qText}}" href="" class="{{active chapter}} item">
+      {{chapter.qText}}
+    </a>
+
+    {{/each}}
+  </div>
+</template>
+
+<template name="slideContent">
+  <div class="slideContent">
+
+    {{#each bullet in bullets}} {{{bullet}}} {{/each}}
+    {{{ comment }}}
+  </div>
+</template>
+
+<template name="slideShareModal">
+  <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div id="modal-container" class="modal__container" role="dialog" aria-modal="true"
+        aria-labelledby="modal-1-title">
+        <header id="modal-header" class="modal__header">
+          <h2 class="modal__title">
+            Get a link for this presentation
+          </h2>
+          <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+        </header>
+        <div id="modal-content-content" class="modal-content-content">
+          <div id="modal-content" class="modal__content" style="display:none;">
+            <p>Please copy this link: <a href="{{shareLinkURL}}">{{shareLinkURL}}</a>. With this link another user can
+              open this presentation with exactly the same selection (slides).</p>
+          </div>
+          <footer id="modal-footer" class="modal__footer">
+            <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,325 @@
+
+
+/*CSS declarations go here */
+
+html {
+    background-color: #fff !important;
+    min-height: 100%;
+}
+
+.mainNavBar {
+    margin-top: 0px !important;
+    background-color: #1c355e !important;
+}
+
+.mainNavBar a {
+    color: white !important;
+}
+
+.mainNavBar a:hover {
+    background-color: #fff  !important;
+    color:#1c355e  !important;
+}
+
+.mainNavBar .saasDemo {
+    color: white !important;
+}
+
+
+.mainNavBar a.active.item {
+    border-color: #E36E0F !important;
+    background-color: white !important;
+    color:#1c355e  !important;
+    top: 2px;
+    /* color: #E36E0F !important; */
+    /* font-size: 1.1em; */
+}
+
+
+#chapters a.active.item {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+.mainContainerContent {
+    padding: 30px 0px 30px 0px;
+}
+
+.positive.button:focus,
+.ui.dropdown .menu > .item.selected
+.ui.dropdown .menu > .item:hover,
+basic.button:focus,
+ basic.button:hover,
+ .button:focus,
+ .button:hover {
+    
+    /* background-color: #f9a900 !important; */
+    /* color: #fff; */
+    /* text-shadow: none; */ 
+    
+        outline-width: 1.5px;
+        outline-style: dashed;
+        outline-color: #4b4b4b;
+        outline-offset: 4px;
+
+}
+
+#sheetSelector {
+    /* position: absolute; */
+    /* margin-top: 60px; */
+    z-index: 999;
+    padding: 10px;
+}
+
+#sheetSelector h1 {
+    font-size: 1.5rem;
+}
+
+#selectionSlide {
+    width: -webkit-fill-available;
+}
+
+.saasDemo.active.item {
+    border-color: #E36E0F !important;
+}
+
+.wrap {
+    min-height: calc(100vh - 234px);
+    /* margin-top: 30px; */
+}
+
+.landing .selectRole {
+    height: 300px;
+}
+
+#qlikFooter h2.ui.header {
+    font-size: 0.9rem;
+    left: 36px;
+    position: relative;
+}
+
+#qlikFooter a {
+    text-decoration: none;
+    font-size: 0.8em;
+
+}
+
+#qlikFooter ul {
+    list-style-type: none;
+    margin-bottom: 0.5em;
+    margin-left: 0px;
+}
+
+#qlikFooter li {
+    margin-bottom: 0.4em;
+}
+
+#qlikFooter a:hover, a:focus {
+    color: #006937;
+    outline-width: 1.5px;
+    outline-style: dashed;
+    outline-color: #E36E0F;
+    outline-offset: 4px;
+}
+
+.row {
+    padding: 14px !important;
+}
+
+/* .landing .secondRow {
+    margin-top: 150px;
+} */
+
+.deleteStream,
+.customer-row,
+.copyApp,
+.deleteApp,
+.markAsTemplate,
+.deleteStream {
+    cursor: pointer
+}
+
+.s-alert-success {
+    background: #006937;
+    /* your background color here */
+    color: #fff
+        /* your text color here */
+}
+
+.ui.segment.SSBI {
+    min-height: 250px;
+    max-width: 250px;
+}
+
+.ui.fixed.table.apiLogs td {
+    overflow-wrap: break-word;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+.text.container .left.floated.image {
+    margin: 2em 2em 2em -5em;
+}
+
+.text.container .right.floated.image {
+    margin: 2em -4em 2em 5em;
+}
+
+/* DROPDOWN FOR WCAG */
+
+.show-overflow {
+    overflow: visible !important;
+}
+
+.show-overflow .box-content {
+    overflow: visible !important;
+}
+
+#flyoutnavkbfixed {
+    display: table;
+    width: 100%;
+}
+
+#flyoutnavkbfixed>ul {
+    margin: 0;
+    padding: 0;
+    display: table-row;
+    background-color: #1C355E;
+    color: #fff;
+}
+
+#flyoutnavkbfixed>ul>li {
+    display: table-cell;
+    width: 20%;
+    text-align: center;
+    position: relative;
+}
+
+#flyoutnavkbfixed a,
+#flyoutnavkbfixed .current {
+    display: block;
+    padding: .25em;
+    border-color: #E8E8E8;
+}
+
+#flyoutnavkbfixed a {
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #1C355E;
+}
+
+#flyoutnavkbfixed a:hover,
+#flyoutnavkbfixed a:focus,
+.ui.button a:hover {
+    background-color: #fff;
+    color: #1C355E;
+    border: 1px solid #1C355E;
+    text-decoration: underline;
+    
+}
+
+#flyoutnavkbfixed .current {
+    background-color: #bbb;
+    color: #000;
+    border-color: #444;
+}
+
+#flyoutnavkbfixed>ul>li>ul {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #1C355E;
+}
+
+#flyoutnavkbfixed>ul>li.open>ul {
+    display: block;
+}
+
+#flyoutnavkbfixed>ul>li>ul a {
+    border-bottom-width: 1px;
+}
+
+
+#appmenu {
+	width:80%;
+	float: left;
+	margin: 0;
+	padding: 0;
+	color: #fff;
+	/* background-color: #369; */
+	padding: .25em;
+}
+#appmenu li {
+	white-space: nowrap;
+	display:block;
+	padding: .25em .75em;
+	border: 1px solid #fff;
+}
+#appmenu > li {
+	float: left;
+	background-color: #1C355E;
+	text-align: center;
+	position:relative;
+	cursor: pointer;
+}
+#appmenu :hover,
+#appmenu :focus {
+	background-color: #fff;
+	color: #1C355E;
+	border: 1px solid #1C355E;
+	text-decoration: underline;
+}
+
+#appmenu :hover li,
+#appmenu :focus li {
+	color: #fff;
+	background-color: #1C355E;
+}
+
+#appmenu > li > ul {
+	display: none;
+	position:absolute;
+	left:0;
+	right:0;
+	top:100%;
+	padding:0;
+	margin:0;
+	background-color: #1C355E;
+	width: 200%;
+	text-align: left;
+}
+
+#appmenu > li[aria-expanded="true"] > ul {
+	display:block;
+}
+
+a.skip-main {
+    left:-999px;
+    position:absolute;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    z-index:-999;
+}
+a.skip-main:focus, a.skip-main:active {
+    color: #fff;
+    background-color:#000;
+    left: auto;
+    top: auto;
+    width: 100px;
+    height: auto;
+    overflow:auto;
+    margin: 10px 35%;
+    padding:5px;
+    border-radius: 15px;
+    border:4px solid yellow;
+    text-align:center;
+    font-size:1.2em;
+    z-index:999;
+}
+

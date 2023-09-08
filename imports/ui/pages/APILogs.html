@@ -1,0 +1,142 @@
+<template name="APIIntroduction">
+    <h3 class="ui header">
+        Why integration.qlik.com?</h3>
+    <p>Here we demonstrate how you can embed and control Qlik Sense via an automated process in your SaaS platform. (<a
+            href={{pathFor 'introduction'}}>Read more</a>)</p>
+    <h3 class="ui header">
+        What is the purpose of the demo platform?
+    </h3>
+    <div class="ui grid">
+        <div class="column">
+            <p>Demonstrate a sample SaaS platform with Qlik Sense embedded including:
+            </p>
+            <ul class="ui list">
+                <li> The “look and feel” of an integrated solution
+                </li>
+                <li>“Security”, re-using the security of your SaaS platform in Qlik Sense
+                </li>
+                <li>“SaaS provisioning”, create dashboard for each user whenever you like
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <h3 class="ui header">
+        API – Process integration</h3>
+    <img class="ui medium right floated image" alt="FRONT END FOCUSED:
+    Automate things on behalf of an end user.
+    Open/reload/delete an app.
+    Make or get a selection.
+    Get a chart to be directly embedded in a DIV - or get a plain array of data based on the selections made.
+    Create an app/chart on the fly.  
+    SERVER SIDE FOCUSED:
+    Authentication - login user (provide Single Sign On via a ticket request).
+    Admin QMC like activities, (insert or modify configuration, licenses, security rules, apps).
+    " data-action="zoom" src="images/API components overview.png">
+    <p>Integrate Qlik Sense in your SaaS automation or provisioning process using our .NET API and Visual Studio plugin.
+        Or, 
+        <a href="https://help.qlik.com/en-US/sense-developer/3.1/Content/APIs-and-SDKs.htm">APIs</a> to automate each
+        manual activity. Using this mechanism, you can create, delete, or reload apps for each of your customers. You
+        can even create complete dashboards or individual charts on the fly.</p>
+</template>
+<template name='APILogs'>
+    <div class="ui text container">
+        {{>APIIntroduction}} {{> APISourceCode}}
+    </div>
+</template>
+<template name="APISourceCode">
+    <h3>Use the demo source code</h3>
+    <p>This demo platform provides you with a wrapper around the  <a
+            href="https://help.qlik.com/en-US/sense/3.1/Content/Videos/Videos-qmc-intro.htm">Qlik Sense QMC</a>, so you can send
+        API calls to Qlik Sense by pressing certain buttons. Using these calls you can, for example, create streams and
+        apps or complete any other activity that you’d be able to do in the QMC or app. Your SaaS platform most likely
+        uses rest APIs already, so just copy the code and start automating. The tasks we have automated are what we
+        refer to as the "generation.” These key steps that should be completed for each new customer are:
+        <br>
+    <ul class="ui list">
+        <li><a target="_blank" href="{{github_create_stream}}">Create a new stream with the customer’s name</a></li>
+        <li><a target="_blank" href="{{github_copy_app}}">Copy the template app</a> (note: you can also create apps on
+            the fly using <a
+                href="https://help.qlik.com/en-US/sense-developer/3.1/Subsystems/EngineAPI/Content/CreatingAppLoadingData/CreateApps/create-app.htm">"session
+                apps"</a>. For example, you can <a
+                href="https://github.com/mindspank/sessionapp-simple/blob/master/index.js#L48">copy the app</a> and
+            populate it with real time data in a couple of seconds when a user logs in.)</li>
+        <li><a target="_blank" href="{{github_replace_and_reload_app}}">Replace the script and reload the app.</a></li>
+        <li><a target="_blank" href="{{github_publish_app}}">Publish the app in the customer stream</a></li>
+    </ul>
+    </p>
+</template>
+<template name="ApiLogsTable">
+    {{> sAlert}}
+    {{#if restrictedApiLogs.count}}
+    <h3 class="ui header">API interaction overview (logging)</h3>
+
+    <p>In the table below you will see a real time overview of JSON messages being sent between this SaaS platform and
+        the Qlik Sense QRS and the Engine API. You can search for specific words like app, stream, SSO, ticket, logout
+        etc. to view the request and the response from Qlik Sense.</p>
+    <!-- {{> reactiveTable collection=restrictedApiLogs settings=RESTCallSettings}} -->
+    <table class="ui fixed table apiLogs">
+        <thead>
+            <tr>
+                <th class="two wide">Action</th>
+                <th class="six wide">Request</th>
+                <th class="eight wide">Response</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each restrictedApiLogs}}
+            <tr>
+                <td>
+                    {{#if url}}
+                    <a href="{{url}}" target="_blank"> {{action}}</a>
+                    {{else}}
+                    {{action}}
+                    {{/if}}
+                </td>
+                <td>
+                    {{request}}
+                </td>
+                <td>
+                    {{#if response}}
+                    <pre><code>{{{formattedResponse response}}}</code></pre>
+                    {{/if}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+    <div class="ui text container" style="margin-top:0px">
+        <h3 class="ui header">API interaction overview (logging)</h3>
+        <div class="ui segment">
+            <div class="ui active inverted dimmer">
+                <div class="ui text loader">Loading</div>
+            </div>
+            <p>Please wait for the API logs to be shown. Or if you haven't already, please <a
+                    href={{pathFor 'generation'}}>generate</a> some apps in the SaaS demo or try to login as a user, for
+                example in step 4 of the SaaS demo or via the "self service" demo. This will generate some logging which
+                you can investigate. It will also provide you links to the source code.</p>
+        </div>
+
+    </div>
+
+    {{/if}}
+</template>
+<template name="sequenceDiagrams">
+
+</template>
+<template name="APIIntegrationMindMap">
+    <div class="ui modal APIIntegrationMindMap">
+        <div class="ui icon message">
+            <img class="icon" src="images/API.png">
+            <div class="content">
+                <div class="header">
+                    <h3>Overview of the key APIs to be used by your SaaS platform</h3>
+                </div>
+            </div>
+        </div>
+        <div class="ui divider"></div>
+        <img class="ui massive image" src="images/mindMapAPIIntegration.png">
+        <!-- <iframe class="frame" src="/API.html"></iframe> -->
+    </div>
+</template>
