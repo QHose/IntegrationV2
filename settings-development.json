@@ -13,7 +13,7 @@
             "stream": "Everyone"
         },
         "slideGenerator": {
-            "name": "Slide generator integration",
+            "name": "Slide generator",
             "stream": "API apps",
             "virtualProxy": "presentationsso"
         }
