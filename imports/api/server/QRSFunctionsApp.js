@@ -68,16 +68,16 @@ export async function uploadAndPublishTemplateApps() {
     console.log('uploadAndPublishTemplateApps: Read all files in the template apps folder "' + newFolder + '" and upload them to Qlik Sense.');
 
     //GET THE ID OF THE IMPORTANT STREAMS (streams that QRSMeteor needs)
-    var everyOneStreamId = QSStream.getStreamByName(Meteor.settings.broker.qlikSense.EveryoneAppStreamName).id;
+    // var everyOneStreamId = QSStream.getStreamByName(Meteor.settings.broker.qlikSense.EveryoneAppStreamName).id;
     var templateStreamId = QSStream.getStreamByName(Meteor.settings.public.TemplateAppStreamName).id;
     var APIAppsStreamID = QSStream.getStreamByName(Meteor.settings.broker.qlikSense.APIAppStreamName).id;
     try {
-        check(newFolder, String);
-        check(everyOneStreamId, String);
-        check(templateStreamId, String);
+        // check(newFolder, String);
+        // check(everyOneStreamId, String);
+        // check(templateStreamId, String);
         check(APIAppsStreamID, String);
     } catch (err) {
-        console.error('You did not specify the templateAppsFrom, everyone, api apps or template stream name in the settings.json file?');
+        console.error('You did not specify the api apps stream name in the settings.json file?');
         throw new Meteor.Error('Missing Settings', 'You did not specify the everone, api apps or template stream name in the settings.json file?');
     }
 
@@ -97,14 +97,14 @@ export async function uploadAndPublishTemplateApps() {
                 var appId = await uploadApp(filePath, appName);
 
                 //BASED ON THE APP WE WANT TO PUBLISH IT INTO A DIFFERENT STREAM                      
-                if (appName === 'SSBI') { //should be published in the everyone stream
-                    _SSBIApp = appId; // for the client side HTML/IFrames etc.                                
-                    publishApp(appId, appName, everyOneStreamId);
-                } else if (appName === 'Sales') { //THIS ONE NEEDS TO BE COPIED AND PUBLISHED INTO 2 STREAMS: AS TEMPLATE AND FOR THE EVERYONE STREAM.
-                    publishApp(appId, appName, everyOneStreamId);
-                    var copiedAppId = copyApp(appId, appName);
-                    publishApp(copiedAppId, appName, templateStreamId);
-                } else if (appName === 'Slide generator') {
+                // if (appName === 'SSBI') { //should be published in the everyone stream
+                //     _SSBIApp = appId; // for the client side HTML/IFrames etc.                                
+                //     publishApp(appId, appName, everyOneStreamId);
+                // } else if (appName === 'Sales') { //THIS ONE NEEDS TO BE COPIED AND PUBLISHED INTO 2 STREAMS: AS TEMPLATE AND FOR THE EVERYONE STREAM.
+                //     publishApp(appId, appName, everyOneStreamId);
+                //     var copiedAppId = copyApp(appId, appName);
+                //     publishApp(copiedAppId, appName, templateStreamId);
+                if (appName === 'Slide generator') {
                     _slideGeneratorAppId = appId,
                         publishApp(appId, appName, APIAppsStreamID);
                 } else {
