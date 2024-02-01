@@ -23,24 +23,40 @@ process.on("unhandledRejection", up => {
 });
 
 //import config for Qlik Sense QRS and Engine API.
+import { senseConfig, authHeaders } from "/imports/api/config";
 import "/imports/startup/accounts-config.js";
 const path = require("path");
 var fs = require("fs-extra");
-// import shell from "node-powershell";
+import shell from "node-powershell";
 
 var connectHandler = WebApp.connectHandlers; // get meteor-core's connect-implementation
 
+
 // attach connect-style middleware for response header injection
-Meteor.startup(function() {
+Meteor.startup(function () {
     WebApp.addHtmlAttributeHook(() => ({ lang: 'en' }));
-    connectHandler.use(function(req, res, next) {
-        res.setHeader('access-control-allow-origin', '*');
-        return next();
-    })
+    // connectHandler.use(function(req, res, next) {
+    //     res.setHeader('access-control-allow-origin', '*');
+    //     return next();
+    // })
 })
 
+WebApp.rawConnectHandlers.use((_, res, next) => {
+    res.setHeader('Content-Security-Policy', 'default-src https:');
+    res.setHeader('Strict-Transport-Security', 'max-age=63072000');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Content-Security-Policy', 'frame-ancestors', 'self');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '0');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3030');
+    res.setHeader('Access-Control-Allow-Origin', 'https://integration.qlik.com');
+    res.setHeader('Access-Control-Allow-Origin', 'https://saasdemo.qlik.com');
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization,Content-Type');
+    return next();
+});
 
-Meteor.startup(async function() {
+Meteor.startup(async function () {
     // process.env.ROOT_URL = "http://" + Meteor.settings.public.qlikSenseHost;
     // console.log(
     //     "********* We expect Qlik Sense to run on host: ",
@@ -87,10 +103,10 @@ async function initQlikSense() {
             console.log(
                 "The runInitialQlikSenseSetup setting has been set to true, so we expect to have a fresh Qlik Sense installation for which we now automatically populate with the apps, streams, license, security rules etc."
             );
-            // if (Meteor.settings.broker.qlikSense.installQlikSense) {
-            //     await installQlikSense();
-            //     // await timeout(1000 * 60 * 20); //wait 20 minutes till the Qlik Sense installation has completed...
-            // }
+            if (Meteor.settings.broker.qlikSense.installQlikSense) {
+                await installQlikSense();
+                // await timeout(1000 * 60 * 20); //wait 20 minutes till the Qlik Sense installation has completed...
+            }
             QSLic.insertLicense();
             QSLic.insertUserAccessRule();
             QSSystem.disableDefaultSecurityRules();
@@ -100,9 +116,9 @@ async function initQlikSense() {
             QSStream.initSenseStreams();
             await QSApp.uploadAndPublishTemplateApps();
             QSApp.setAppIDs();
-            // await QSApp.createAppConnections(); //import extra connections
-            // QSExtensions.uploadExtensions();
-            // QSLic.saveSystemRules();
+            await QSApp.createAppConnections(); //import extra connections
+            QSExtensions.uploadExtensions();
+            QSLic.saveSystemRules();
         } else {
             //set the app Id for the self service bi and the slide generator app, for use in the IFrames etc.
             QSApp.setAppIDs();
@@ -131,7 +147,7 @@ async function sleep(fn, ...args) {
 // ─── INSTALL QLIK SENSE ───────────────────────────────────────────────────────────
 //
 
-var installQlikSense = async function() {
+var installQlikSense = async function () {
     console.log(
         "installQlikSense is true in the settings file so start creating the config file for the Sense silent script..."
     );
@@ -243,7 +259,7 @@ function removeGeneratedResources() {
     //     Meteor.call('removeGeneratedResources', {});
     // }, 0); //remove all logs directly at startup
     if (Meteor.settings.broker.automaticCleanUpGeneratedApps === "Yes") {
-        Meteor.setInterval(function() {
+        Meteor.setInterval(function () {
             console.log(
                 "remove all generated resources in mongo and qlik sense periodically by making use of a server side timer"
             );
