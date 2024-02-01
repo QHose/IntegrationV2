@@ -39,7 +39,7 @@
         "customerDataDir": "",
         "automaticCleanUpGeneratedApps": "Yes",
         "automationBaseFolder": "",
-        "runInitialQlikSenseSetup": true,
+        "runInitialQlikSenseSetup": false,
         "qlikSense": {
             "multiTenantScenario": false,
             "connectToSenseAsUserDirectory": "",
