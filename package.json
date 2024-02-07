@@ -10,6 +10,7 @@
     "faker": "^4.1.0",
     "fs": "^0.0.1-security",
     "fs-extra": "^4.0.3",
+    "helmet": "^7.1.0",
     "highlight.js": "^9.18.5",
     "ip": "^1.1.8",
     "jquery": "2.2.4",

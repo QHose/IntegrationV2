@@ -190,7 +190,7 @@ if (Meteor.isServer) {
             // READ THE FILE 
             try {
                 var exampleSettingsFile = await fs.readJson(file);                
-				console.log('TCL: exampleSettingsFile', exampleSettingsFile)
+				console.log('ExampleSettingsFile', exampleSettingsFile)
             } catch (error) {
                 throw new Error('Meteor can not find your example settings file: ' + file);
             }

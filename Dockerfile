@@ -1,4 +1,4 @@
-FROM node:8.8.1
+FROM node:12.16.1
 # Set one or more individual labels
 LABEL maintainer="Martijn Biesbroek"
 EXPOSE 3000

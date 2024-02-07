@@ -14,7 +14,8 @@ import * as QSLic from "/imports/api/server/QRSFunctionsLicense";
 import * as QSProxy from "/imports/api/server/QPSFunctions";
 import * as QSSystem from "/imports/api/server/QRSFunctionsSystemRules";
 import * as QSExtensions from "/imports/api/server/QRSFunctionsExtension";
-import * as QSCustomProps from "/imports/api/server/QRSFunctionsCustomProperties";
+// import * as QSCustomProps from "/imports/api/server/QRSFunctionsCustomProperties";
+import helmet from "helmet";
 var os = require('os')
 
 //stop on unhandled errors
@@ -35,26 +36,62 @@ var connectHandler = WebApp.connectHandlers; // get meteor-core's connect-implem
 // attach connect-style middleware for response header injection
 Meteor.startup(function () {
     WebApp.addHtmlAttributeHook(() => ({ lang: 'en' }));
-    // connectHandler.use(function(req, res, next) {
-    //     res.setHeader('access-control-allow-origin', '*');
-    //     return next();
-    // })
-})
+  
+    WebApp.connectHandlers.use(
+        helmet.contentSecurityPolicy({
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'"],
+                connectSrc: ['*'],
+                imgSrc: ["'self'", 'https://*.qlik.com', 'https://user-images.githubusercontent.com', 'https://lucidchart.com', 'https://github.com'],
+                styleSrc: ["'self'", "'unsafe-inline'", 'https://*.qlik.com'],
+                frameSrc: ['https://integrationdemo1.qlik.com', 'https://integrationdemo2.qlik.com', 'https://integrationdemo3.qlik.com', 'https://*.qlik.com']
+            }
+        }),
+        
+        // crossOriginResourcePolicy: { policy: "cross-origin" },
+        // crossOriginEmbedderPolicy: false,
+    );
 
-WebApp.rawConnectHandlers.use((_, res, next) => {
-    res.setHeader('Content-Security-Policy', 'default-src https:');
-    res.setHeader('Strict-Transport-Security', 'max-age=63072000');
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('Content-Security-Policy', 'frame-ancestors', 'self');
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-    res.setHeader('X-XSS-Protection', '0');
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3030');
-    res.setHeader('Access-Control-Allow-Origin', 'https://integration.qlik.com');
-    res.setHeader('Access-Control-Allow-Origin', 'https://saasdemo.qlik.com');
-    res.setHeader('Access-Control-Allow-Headers', 'Authorization,Content-Type');
-    return next();
+    //https://guide.meteor.com/security#csp
+    BrowserPolicy.content.disallowInlineScripts();
+
+    WebApp.rawConnectHandlers.use((_, res, next) => {
+        // Cache control
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Strict-Transport-Security', 'max-age=63072000; includeSubDomains');
+        // Prevent Adobe stuff loading content on our site
+        res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
+        // Frameguard - https://helmetjs.github.io/docs/frameguard/
+        res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+        // X-XSS protection
+        res.setHeader('X-XSS-Protection', '1; mode=block');
+        
+        
+        // Expect CT
+        res.setHeader('Expect-CT', 'enforce, max-age=604800');
+                
+        
+        var domain = 'integration.qlik.com'
+        
+        // res.setHeader('Content-Security-Policy', 'frame-ancestors', 'self');
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3030');
+        res.setHeader('Access-Control-Allow-Origin', domain);
+        res.setHeader('Access-Control-Allow-Origin', 'https://saasdemo.qlik.com');
+        res.setHeader('Access-Control-Allow-Headers', 'Authorization,Content-Type');
+        return next();        
+    });
+
+   
+   
 });
+
+
+
+
+
 
 Meteor.startup(async function () {
     // process.env.ROOT_URL = "http://" + Meteor.settings.public.qlikSenseHost;
