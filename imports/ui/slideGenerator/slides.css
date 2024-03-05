@@ -61,6 +61,12 @@
     text-shadow: none;
 }
 
+
+.reveal .slides {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .reveal .slides>section,
 .reveal .slides>section>section {
     line-height: 1.3;

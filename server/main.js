@@ -41,9 +41,9 @@ Meteor.startup(function () {
         helmet.contentSecurityPolicy({
             directives: {
                 defaultSrc: ["'self'"],
-                scriptSrc: ["'self'"],
+                scriptSrc: ["'self'","'unsafe-inline'"],
                 connectSrc: ['*'],
-                imgSrc: ["'self'", 'https://*.qlik.com', 'https://user-images.githubusercontent.com', 'https://lucidchart.com', 'https://github.com'],
+                imgSrc: ["'self'", 'https://*.qlik.com', 'https://user-images.githubusercontent.com', 'https://lucidchart.com', 'https://github.com', 'https://*.amazonaws.com'],
                 styleSrc: ["'self'", "'unsafe-inline'", 'https://*.qlik.com'],
                 frameSrc: ['https://integrationdemo1.qlik.com', 'https://integrationdemo2.qlik.com', 'https://integrationdemo3.qlik.com', 'https://*.qlik.com']
             }
@@ -54,7 +54,7 @@ Meteor.startup(function () {
     );
 
     //https://guide.meteor.com/security#csp
-    BrowserPolicy.content.disallowInlineScripts();
+    // BrowserPolicy.content.disallowInlineScripts();
 
     WebApp.rawConnectHandlers.use((_, res, next) => {
         // Cache control

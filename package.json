@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.22.15",
-    "axios": "^1.2.3",
+    "axios": "^1.6.7",
     "bluebird": "^3.5.1",
     "core-js": "^3.23.3",
     "enigma.js": "^2.12.0",
@@ -12,7 +12,7 @@
     "fs-extra": "^4.0.3",
     "helmet": "^7.1.0",
     "highlight.js": "^9.18.5",
-    "ip": "^1.1.8",
+    "ip": "^1.1.9",
     "jquery": "2.2.4",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.21",
