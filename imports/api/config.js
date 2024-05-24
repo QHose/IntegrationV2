@@ -58,12 +58,7 @@ if (Meteor.isServer) {
         "port": Meteor.settings.public.qlikSensePort,
         "useSSL": Meteor.settings.public.useSSL,
         "xrfkey": generateXrfkey(),
-        "virtualProxy": Meteor.settings.private.virtualProxy, //used to connect via REST to Sense, we authenticate via a http header. not for production!!!
-        "virtualProxyClientUsage": Meteor.settings.public.virtualProxyClientUsage,
-        "headerKey": Meteor.settings.private.headerKey,
-        "headerValue": Meteor.settings.broker.qlikSense.connectToSenseAsUserDirectory + '\\' + Meteor.settings.broker.qlikSense.connectToSenseAsUser, //"QLIK-AB0Q2URN5T\\Qlikexternal",
         "isSecure": Meteor.settings.private.isSecure,
-        "qrsPort": Meteor.settings.private.qrsPort,
         "enginePort": Meteor.settings.private.enginePort
     };
 

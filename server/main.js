@@ -158,7 +158,7 @@ async function initQlikSense() {
             QSLic.saveSystemRules();
         } else {
             //set the app Id for the self service bi and the slide generator app, for use in the IFrames etc.
-            QSApp.setAppIDs();
+            // QSApp.setAppIDs();
         }
 
         //now qlik sense has been installed, we can try to connect, and load the streams and apps into our mongoDB
@@ -306,30 +306,30 @@ function removeGeneratedResources() {
 }
 
 function optimizeMongoDB() {
-    // console.log('## setting up mongo indexes on generationUserId in the generated resources, customers and other collections, to increase mongo performance');
-    TemplateApps._ensureIndex({
-        generationUserId: 1,
-        id: 1
-    });
-    GeneratedResources._ensureIndex({
-        generationUserId: 1,
-        id: 1
-    });
-    Apps._ensureIndex({
-        id: 1
-    });
-    Customers._ensureIndex({
-        generationUserId: 1
-    });
-    Streams._ensureIndex({
-        id: 1
-    });
-    APILogs._ensureIndex({
-        createdBy: 1
-    });
-    APILogs._ensureIndex({
-        createDate: 1
-    });
+//     // console.log('## setting up mongo indexes on generationUserId in the generated resources, customers and other collections, to increase mongo performance');
+//     TemplateApps._ensureIndex({
+//         generationUserId: 1,
+//         id: 1
+//     });
+//     GeneratedResources._ensureIndex({
+//         generationUserId: 1,
+//         id: 1
+//     });
+//     Apps._ensureIndex({
+//         id: 1
+//     });
+//     Customers._ensureIndex({
+//         generationUserId: 1
+//     });
+//     Streams._ensureIndex({
+//         id: 1
+//     });
+//     APILogs._ensureIndex({
+//         createdBy: 1
+//     });
+//     APILogs._ensureIndex({
+//         createDate: 1
+//     });
 }
 
 //
