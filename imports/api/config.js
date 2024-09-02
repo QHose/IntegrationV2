@@ -203,11 +203,11 @@ if (Meteor.isServer) {
             //     throw new Error('Meteor wants to check your settings.json with the parameters in the example settings.json in the project root. Error: Cant read the example settings definitions file (not valid JSON): ' + file, err);
             // }
 
-            var keysEqual = compareKeys(Meteor.settings, exampleSettingsFile);
-            console.log('Settings file has all the keys as specified in the example json file?', keysEqual)
-            if (!keysEqual) {
-                throw new Error('Settings.json file does not have all keys as defined in the settings-development-example.json (in your project root), Please verify if you have all the keys as specified in the settings-development-example.json in the project root folder. In my dev environment: C:\\Users\\Qlikexternal\\Documents\\GitHub\\QRSMeteor');
-            }
+            // var keysEqual = compareKeys(Meteor.settings, exampleSettingsFile);
+            // console.log('Settings file has all the keys as specified in the example json file?', keysEqual)
+            // if (!keysEqual) {
+            //     throw new Error('Settings.json file does not have all keys as defined in the settings-development-example.json (in your project root), Please verify if you have all the keys as specified in the settings-development-example.json in the project root folder. In my dev environment: C:\\Users\\Qlikexternal\\Documents\\GitHub\\QRSMeteor');
+            // }
         })
 
     } catch (error) {
