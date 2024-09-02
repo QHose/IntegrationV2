@@ -3,7 +3,7 @@
 PROJECT_ROOT=$(pwd)
 echo "Build tool project root directory: $PROJECT_ROOT"
 BASE_APP_NAME="integrationv2"
-BUILD_DIR="./.build"
+BUILD_DIR="../.build"
 BUNDLE_DIR="$BUILD_DIR/bundle"
 VERSION=$(date +%Y%m%d-%H%M)
 DOCKER_TAG="qhose/$BASE_APP_NAME:$VERSION"
@@ -17,17 +17,19 @@ remove_path_to_long_directory() {
     rm -rf $directory
     rm -rf $temp_directory
 }
+echo npm update
+npm update
 
-echo "STEP delete old build files"
-remove_path_to_long_directory $BUILD_DIR
+# echo "STEP delete old build files"
+# remove_path_to_long_directory $BUILD_DIR
 
-echo "STEP build new meteor bundle"
-meteor build --architecture=os.linux.x86_64 --allow-superuser --directory $BUILD_DIR
+# echo "STEP build new meteor bundle"
+# meteor build --architecture=os.linux.x86_64 --allow-superuser --directory $BUILD_DIR
 
 echo "STEP copy dockerfile to bundle folder, so docker can build the image"
 cp Dockerfile $BUNDLE_DIR
 cp startNode.sh $BUNDLE_DIR
-cp settings-development-example.json $BUNDLE_DIR
+# cp settings-development-example.json $BUNDLE_DIR
 
 echo "STEP go to bundle dir"
 cd "$BUNDLE_DIR"

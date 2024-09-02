@@ -1,4 +1,4 @@
-FROM node:v14.21
+FROM node:14.21
 LABEL maintainer="Martijn Biesbroek"
 EXPOSE 3000
 
@@ -12,7 +12,7 @@ ADD . /meteorQRS
 RUN ls -la /meteorQRS/programs/server/
 
 # Add the settings-example file to the container
-ADD ./settings-development-example.json /meteorQRS/programs/server/
+# ADD ./settings-development-example.json /meteorQRS/programs/server/
 
 WORKDIR /meteorQRS/programs/server
 RUN npm install
