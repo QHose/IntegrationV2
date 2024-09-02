@@ -1,24 +1,21 @@
-FROM node:12.16.1
-# Set one or more individual labels
+FROM node:v14.21
 LABEL maintainer="Martijn Biesbroek"
 EXPOSE 3000
 
-# we assume your bundle dir is the current dir on the docker host, lets copy it to the container
-# so in my case . refers to C:\Users\Qlikexternal\Documents\GitHub\QRSMeteor\.build\bundle
-# in the container we will create a new directory meteorQRS and copy the contents of C:\Users\Qlikexternal\Documents\GitHub\QRSMeteor\.build\bundle to it. 
+# List the contents of the current directory to verify the presence of the file
+RUN ls -la
+
+# Copy the bundle directory to the container
 ADD . /meteorQRS
 
-# add a settings-example file to the container, the source code uses this file to validate if the user specified all keys in his settings file.
+# Check if the settings file exists
+RUN ls -la /meteorQRS/programs/server/
+
+# Add the settings-example file to the container
 ADD ./settings-development-example.json /meteorQRS/programs/server/
 
-# cd into the new directory, and go to the server folder
 WORKDIR /meteorQRS/programs/server
-
-# make sure all the NPM modules are downloaded again (via the settings in the package.json file in the server bundle\...\server folder)
 RUN npm install
 
-# cd to the dir where the startup script is
 WORKDIR /meteorQRS
-
-## the settings.json file has been linked (via a volume from windows to linux) to the /meteorQRS/config directory. startNode.sh will execute node including the settings.json
 CMD ["bash", "./startNode.sh"]
