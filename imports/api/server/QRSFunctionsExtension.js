@@ -20,7 +20,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const enigma = require('enigma.js');
 var promise = require('bluebird');
-var request = require('request');
+// var request = require('request');
 var qrs = new myQRS();
 
 // export async function automaticUploadExtensions() {
@@ -71,7 +71,7 @@ async function uploadExtension(password, filePath) {
     // qrs.post('/qrs/extension/upload?pwd=' + password, data)
     return await new Promise(function(resolve, reject) {
 
-        request.post({
+        HTTP.post({
             url: qlikHDRServer + '/qrs/extension/upload?&xrfkey=' + senseConfig.xrfkey, //removed password parameter, assume blank
             headers: {
                 'hdr-usr': senseConfig.headerValue,

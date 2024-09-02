@@ -50,7 +50,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const enigma = require('enigma.js');
 // var promise = require('bluebird');
-var request = require('request');
+// var request = require('request');
 var sanitize = require("sanitize-filename");
 
 
@@ -436,35 +436,35 @@ function checkTemplateAppExists(generationUserId) {
 
 
 async function uploadApp(filePath, appName) {
-    console.log('Upload app: ' + appName + ' from path: ' + filePath + ' via header authentication server: ' + qlikHDRServer);
-    return await new Promise(function(resolve, reject) {
-        var formData = {
-            my_file: fs.createReadStream(filePath)
-        };
+    console.log('DISABLED Upload app: ' + appName + ' from path: ' + filePath + ' via header authentication server: ' + qlikHDRServer);
+    // return await new Promise(function(resolve, reject) {
+    //     var formData = {
+    //         my_file: fs.createReadStream(filePath)
+    //     };
 
-        try {
-            request.post({
-                url: qlikHDRServer + '/qrs/app/upload?name=' + appName + '&xrfkey=' + senseConfig.xrfkey,
-                headers: {
-                    'Content-Type': 'application/vnd.qlik.sense.app',
-                    'hdr-usr': senseConfig.headerValue,
-                    'X-Qlik-xrfkey': senseConfig.xrfkey
-                },
-                formData: formData
-            }, function(error, res, body) {
-                if (!error) {
-                    var appId = JSON.parse(body).id;
-                    console.log('Uploaded "' + appName + '.qvf" to Qlik Sense and got appID: ' + appId);
-                    resolve(appId);
-                } else {
-                    console.error("Failed to upload app" + appName, error);
-                    reject(error);
-                }
-            });
-        } catch (error) {
-            console.error('failed to upload app', error);
-        }
-    });
+    //     try {
+    //         HTTP.post({
+    //             url: qlikHDRServer + '/qrs/app/upload?name=' + appName + '&xrfkey=' + senseConfig.xrfkey,
+    //             headers: {
+    //                 'Content-Type': 'application/vnd.qlik.sense.app',
+    //                 'hdr-usr': senseConfig.headerValue,
+    //                 'X-Qlik-xrfkey': senseConfig.xrfkey
+    //             },
+    //             formData: formData
+    //         }, function(error, res, body) {
+    //             if (!error) {
+    //                 var appId = JSON.parse(body).id;
+    //                 console.log('Uploaded "' + appName + '.qvf" to Qlik Sense and got appID: ' + appId);
+    //                 resolve(appId);
+    //             } else {
+    //                 console.error("Failed to upload app" + appName, error);
+    //                 reject(error);
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.error('failed to upload app', error);
+    //     }
+    //});
 }
 //
 // ─── COPYAPP ────────────────────────────────────────────────────────────────────
