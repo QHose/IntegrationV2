@@ -9,7 +9,7 @@ import { gitHubLinks } from "/imports/ui/UIHelpers";
 var fs = require("fs-extra");
 const path = require("path");
 var os = require("os");
-var ip = require("ip");
+// var ip = require("ip");
 // const token = require("./token");
 // const { v4: uuidv4 } = require("uuid"); //
 
@@ -60,8 +60,8 @@ export async function createVirtualProxies() {
         vpToCreate.websocketCrossOriginWhiteList.push(
           Meteor.settings.public.qlikSenseHost
         );
-        vpToCreate.websocketCrossOriginWhiteList.push(ip.address());
-        vpToCreate.websocketCrossOriginWhiteList.push(os.hostname());
+        // vpToCreate.websocketCrossOriginWhiteList.push(ip.address());
+        // vpToCreate.websocketCrossOriginWhiteList.push(os.hostname());
       }
       var existingProxies = getVirtualProxies();
 
