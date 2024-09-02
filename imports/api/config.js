@@ -187,27 +187,27 @@ if (Meteor.isServer) {
             console.log('Meteor tries to find the settings-development-example.json file in Meteor.absolutePath:', Meteor.absolutePath)
             var file = path.join(Meteor.absolutePath, 'settings-development-example.json');			
 
-            // READ THE FILE 
-            try {
-                var exampleSettingsFile = await fs.readJson(file);                
-				console.log('ExampleSettingsFile', exampleSettingsFile)
-            } catch (error) {
-                throw new Error('Meteor can not find your example settings file: ' + file);
-            }
+            // // READ THE FILE 
+            // try {
+            //     var exampleSettingsFile = await fs.readJson(file);                
+			// 	console.log('ExampleSettingsFile', exampleSettingsFile)
+            // } catch (error) {
+            //     throw new Error('Meteor can not find your example settings file: ' + file);
+            // }
 
-            // VALIDATE JSON OF SETTINGS FILE AGAINST EXAMPLE SETTINGS FILE
-            try {
-                validateJSON(exampleSettingsFile)
-            } catch (err) {
-                console.log(err);
-                throw new Error('Meteor wants to check your settings.json with the parameters in the example settings.json in the project root. Error: Cant read the example settings definitions file (not valid JSON): ' + file, err);
-            }
+            // // VALIDATE JSON OF SETTINGS FILE AGAINST EXAMPLE SETTINGS FILE
+            // try {
+            //     validateJSON(exampleSettingsFile)
+            // } catch (err) {
+            //     console.log(err);
+            //     throw new Error('Meteor wants to check your settings.json with the parameters in the example settings.json in the project root. Error: Cant read the example settings definitions file (not valid JSON): ' + file, err);
+            // }
 
-            var keysEqual = compareKeys(Meteor.settings, exampleSettingsFile);
-            console.log('Settings file has all the keys as specified in the example json file?', keysEqual)
-            if (!keysEqual) {
-                throw new Error('Settings.json file does not have all keys as defined in the settings-development-example.json (in your project root), Please verify if you have all the keys as specified in the settings-development-example.json in the project root folder. In my dev environment: C:\\Users\\Qlikexternal\\Documents\\GitHub\\QRSMeteor');
-            }
+            // var keysEqual = compareKeys(Meteor.settings, exampleSettingsFile);
+            // console.log('Settings file has all the keys as specified in the example json file?', keysEqual)
+            // if (!keysEqual) {
+            //     throw new Error('Settings.json file does not have all keys as defined in the settings-development-example.json (in your project root), Please verify if you have all the keys as specified in the settings-development-example.json in the project root folder. In my dev environment: C:\\Users\\Qlikexternal\\Documents\\GitHub\\QRSMeteor');
+            // }
         })
 
     } catch (error) {
